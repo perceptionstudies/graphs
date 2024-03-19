@@ -1,0 +1,462 @@
+<!-- Original script created by Tal Boger, April 2022 -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div id="experiment">
+  <p id="title"><strong>Describe the plot</strong></p>
+  <p id="browserCompat"><strong>Unfortunately, this study does not work in your current browser. Please use Chrome, Firefox, or Safari. Sorry!</strong></p>
+  <br>
+ 	<div id="imageInstructions">
+    <p>In this experiment, we'll ask you questions about patterns of data in a graph. The graph will only stay on the screen for 15 seconds before disappearing, so pay close attention! After the graph disappears, we'll ask you to type a description of TWO interesting comparisons or patterns that you noticed in the data - <strong>so try your best to remember at least TWO</strong>!</p>
+    <p>Graph background: Imagine that you are looking at how two kids, Charlie and River, grow over time. Their heights are measured at ages 10 and 12.</p>
+    <p>For now, only the axes are visible. When you are ready, you can reveal the data (for only 15 seconds) by pressing the right arrow key on your keyboard. </p>
+  </div>
+  <p style="text-align: center; margin-top: 50px" id="graphCountDown">Graph disappearing in <span id = countDownGraph><b></b></span> seconds.</p>
+  <img id="axes" src="graphs/age_2x2/age_dino_axes.jpg" height=396 width=704 style="position: absolute; left: 50%; top: 175px;  transform: translate(-50%, 175px); margin: 10px"></img>
+  <img id="graph" src="graphs/age_2x2/age_dino.jpg" height=396 width=704 style="position: absolute; left: 50%; top: 175px;  transform: translate(-50%, 175px); margin: 10px"></img>
+  <textarea id="graphBox" rows=4 cols=40 placeholder="Please describe the patterns that you see as most interesting within the graphed data [10 words minimum]." style="position: absolute; left: 50%; top: 150px;  transform: translate(-50%, 150px);"></textarea>
+  <input type="hidden" id="graphGuess" name="graphGuess">
+  <p style="text-align: center; position: absolute; left: 50%; top: 190px;  transform: translate(-50%, 190px);" id="textBoxInstr">In the text box, please describe the patterns that you see as most interesting within the graphed data (10 words minimum)</p>
+  <a href='javascript:showIB1()' id='showInitIB' class='button' style="position: absolute; left: 50%; top: 225px;  transform: translate(-50%, 225px);">Next</a>
+</div>
+
+<div id="ib_part1">
+  <div id ="ibQuestions" style="max-width:80%;margin:10 auto">
+    <strong>You must answer the following questions before completing the experiment.</strong>
+    <br>
+    <br>
+    <p style="text-align:left">Did you notice anything that didn't make sense in the plot? (If not, simply write "no" in the box below; if yes, please describe)</p>
+    <textarea id="senseBox" rows=4 cols=40 placeholder="" style="position: absolute; left: 50%; top: 100px;  transform: translate(-50%, 100px);"></textarea>
+    <input type="hidden" id="senseGuess" name="senseGuess">
+    <br>
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <a href='javascript:showIB2()' id='showDinoIB' class='button'>Next</a>
+</div>
+
+<div id="ib_part2">
+  <div id ="ibQuestions" style="max-width:80%;margin:10 auto">
+    <strong>You must answer the following yes or no questions before completing the experiment.</strong>
+    <br>
+    <br>
+    <p style="text-align:left">Did you <strong><em>previously</em></strong> notice that River's height gets <strong><em>lower</em></strong> between ages 10 and 12 (i.e., River shrinks during those years), which seems unlikely?</p>
+    <p style="text-align:left">Please answer honestly! This may (or may not) be a trick question, so it is very important to us that you answer it based on what you really saw.</p>
+    <br>
+    <br>
+    <input type="radio" name="yes_no_dino" value="yes" onclick = "checkAnswersIB2()" style="display: inline-block;vertical-align: baseline;"> Yes</input>
+    &nbsp; &nbsp;
+    <input type="radio" name="yes_no_dino" value="no" onclick = "checkAnswersIB2()" style="display: inline-block;vertical-align: baseline;"> No</input>
+    <img id="dino_plot" src="graphs/age_2x2/age_dino_q1.jpg" height=396 width=704 style="position: absolute; left: 50%;  transform: translatex(-50%); margin: 25px"></img>
+
+  </div>
+
+  <a href='javascript:showIB3()' id='showGorillaIB' class='button'>Next</a>
+</div>
+
+<div id="ib_part3">
+  <div id ="ibQuestions" style="max-width:80%;margin:10 auto">
+    <strong>You must answer the following yes or no questions before completing the experiment.</strong>
+    <br>
+    <br>
+    <p style="text-align:left">Did you <strong><em>previously</em></strong> notice that Charlie's height stays <strong><em>the same</em></strong> between ages 10 and 12 (i.e., Charlie does not grow during those years), which seems unlikely?</p>
+    <p style="text-align:left">Please answer honestly! This may (or may not) be a trick question, so it is very important to us that you answer it based on what you really saw.</p>
+    <br>
+    <br>
+    <input type="radio" name="yes_no_gorilla" value="yes" onclick = "checkAnswersIB3()" style="display: inline-block;vertical-align: baseline;"> Yes</input>
+    &nbsp; &nbsp;
+    <input type="radio" name="yes_no_gorilla" value="no" onclick = "checkAnswersIB3()" style="display: inline-block;vertical-align: baseline;"> No</input>
+    <img id="dino_plot" src="graphs/age_2x2/age_dino_q2.jpg" height=396 width=704 style="position: absolute; left: 50%;  transform: translatex(-50%); margin: 25px"></img>
+
+    <a href='javascript:doneExperiment()' id='showFinalIB' class='button'>Next</a>
+  </div>
+</div>
+
+<div id="doneText">
+	<strong>Done! You can go ahead and submit the study using the button below after leaving a comment. You will then be redirected to Prolific. Thank you!</strong>
+	<br>
+  <p>The purpose of this experiment was to see whether people tend to miss impossible patterns in graphs, depending on how the graphs are designed.</p>
+  <p>Please enter at least 10 words of comments/advice for us in the box below by answering some or all of the following questions.</p>
+  <p>Were the instructions clear? Were there any technical issues?
+     Did you have any idea of what we were trying to do?
+     Any other comments are welcome!</p>
+  <p>Once you write 10 words, a submit button will appear and you can complete the experiment!</p>
+	<textarea id="commentBox" rows=4 cols=40 placeholder="Enter your comments here..."></textarea>
+	<input type="hidden" id="comments" name="comments">
+  <br>
+  <br>
+  <br>
+  <a href='javascript:submitData("./data")' id='finishExperiment' class='button'>Submit results</a>
+  <br>
+  <span id="redirectToProlific">
+    <p>Your browser should automatically redirect you to Prolific's webpage where you will be given a completion code.</p>
+    <p>Redirecting in <span id = countDown><b></b></span> seconds.</p>
+    <p>If you're not automatically redirected in a few seconds, please copy and paste this address on your web browser:
+    <b><span id = urlProlific></span></b></p>
+  </span>
+</div>
+
+<script>
+$(document).ready( function() {
+    introRoutines();
+});
+
+// hide all things aside from instructions
+$('#graph').hide();
+$('#textBoxInstr').hide();
+$('#graphCountDown').hide();
+$('#showInitIB').hide();
+$('#redirectToProlific').hide();
+$('#ibQuestions').show();
+$('#ib_part1').hide();
+$('#showDinoIB').hide();
+$('#q1').show();
+
+var requestAnimationFrame = window.requestAnimationFrame ||
+                            window.mozRequestAnimationFrame ||
+                            window.webkitRequestAnimationFrame ||
+                            window.msRequestAnimationFrame;
+
+// experiment params
+var experimentName = 'graph_relations';
+var experimentVersion = 'age_2x2_hides_relationship';
+
+// various global vars
+var subjectID, studyID, sessionID;
+var responses = {};
+var startHITTime;
+var startExperimentTime;
+var fired = false;
+
+// get browser params, tell user browser is not compatible if needed
+var browserInfo = getBrowser();
+if (browserInfo['name'] == "msie" || browserInfo['name'] == "Opera") {
+  $('#browserCompat').show();
+} else {
+  $('#browserCompat').hide();
+}
+
+// redirect params
+var urlProlific = "https://app.prolific.co/";
+var graphCountDownClock = 15;
+var finalCountDownClock = 5;
+
+// intro routines before starting
+function introRoutines() {
+  [subjectID, studyID, sessionID] = getProlificInfo();
+  startHITTime = currentTime();
+
+  document.onkeydown = function(e) {
+    if(e.keyCode == 39 && !fired) {
+      fired = true;
+      startExperiment();
+    }
+  };
+
+}
+
+// extract prolific info
+function getProlificInfo() {
+  let urlParams = new URLSearchParams(window.location.search);
+  prolificPID = urlParams.get("PROLIFIC_PID");
+  studyID = urlParams.get("STUDY_ID");
+  sessionID = urlParams.get("SESSION_ID");
+  return [prolificPID, studyID, sessionID]
+}
+
+// start!
+function startExperiment() {
+  startedExperiment = true;
+  startExperimentTime = new Date();
+
+  loadTrial();
+
+}
+
+// load trial
+function loadTrial() {
+  $('#axes').hide();
+  $('#graph').show();
+  $('#graphCountDown').show();
+  $('#countDownGraph').text((graphCountDownClock).toString());
+  redirectTimer = setInterval(countDownGraph, 1000);
+
+  setTimeout(showQuestion, 15000);
+}
+
+
+// show question to allow participants to describe the graph
+function showQuestion() {
+  t0_respond = currentTime();
+  $('#graph').hide();
+  $('#graphCountDown').hide();
+  $('#textBoxInstr').show();
+  $('#graphBox').show();
+
+  document.getElementById('graphBox').addEventListener('input', function() {
+    var text = this.value;
+    count = text.trim().split(' ').length;
+
+    if (count >= 10) {
+        $('#showInitIB').show();
+    }
+  });
+}
+
+// show the first IB question
+function showIB1() {
+  responses['rt'] = currentTime() - t0_respond;
+  $('#experiment').hide();
+  $('#ib_part1').show();
+  $('#senseBox').show();
+
+  $('#graphBox').hide();
+
+  $('#showDinoIB').hide();
+
+  document.getElementById('senseBox').addEventListener('input', function() {
+    var text = this.value;
+    count = text.length;
+
+    if (count >= 2) {
+        $('#showDinoIB').show();
+    }
+  });
+}
+
+// show the second IB question
+function showIB2() {
+  $('#ib_part1').hide();
+  $('#ib_part2').show();
+  $('#showGorillaIB').hide();
+}
+
+// show the third IB question
+function showIB3() {
+  $('#ib_part2').hide();
+  $('#ib_part3').show();
+  $('#showFinalIB').hide();
+}
+
+// ensure yes/no IB questions have been answered
+function checkAnswersIB2(){
+  if($('input[type=radio]:checked').length == 1) {
+    $('#showGorillaIB').show();
+  }
+}
+
+function checkAnswersIB3() {
+  if($('input[type=radio]:checked').length == 2) {
+    $('#showFinalIB').show();
+  }
+}
+
+// reveal final page
+function doneExperiment() {
+  $('#ib_part3').hide();
+	$('#doneText').show();
+	$('#commentBox').show();
+  $('#finishExperiment').hide();
+
+  document.getElementById('commentBox').addEventListener('input', function() {
+    var text = this.value,
+    count = text.trim().split(' ').length;
+
+    if (count >= 10) {
+        $('#finishExperiment').show();
+    }
+  });
+
+  assignExperimentInfo();
+
+}
+
+// assign data before recording data
+function assignExperimentInfo() {
+  responses['experimentName'] = experimentName;
+  responses['experimentVersion'] = experimentVersion;
+  responses['experimentTime'] = Math.round((currentTime() - startHITTime) * 10) / 10;
+
+  responses['studyID'] = studyID;
+  responses['sessionID'] = sessionID;
+
+  responses['browserName'] = browserInfo['name'];
+  responses['browserVersion'] = browserInfo['version'];
+
+  responses['displayWindowHeight'] = $(window).height();
+  responses['displayWindowWidth'] = $(window).width();
+  responses['displayScreenHeight'] = screen.height;
+  responses['displayScreenWidth'] = screen.width;
+
+  responses['noticed_dino'] = document.querySelector('input[name="yes_no_dino"]:checked').value;
+  responses['noticed_gorilla'] = document.querySelector('input[name="yes_no_gorilla"]:checked').value;
+
+}
+
+// record data and redirect
+function submitData(outDir) {
+  responses['graphDescription'] = document.getElementById('graphBox').value;
+  responses['senseDescription'] = document.getElementById('senseBox').value;
+  responses['commentText'] = document.getElementById('commentBox').value;
+  responses['totalTime'] = Math.round((currentTime() - startHITTime) * 10) / 10;
+  // get data string from response array
+  var dataString = JSON.stringify(responses);
+
+  // post response to server
+
+  $.post("./logTrial.py", {
+    subjectID: subjectID,
+    dataString: dataString,
+    outDir: outDir
+  });
+
+
+  $('#redirectToProlific').show();
+  $('#urlProlific').text(urlProlific);
+  $('#countDown').text((finalCountDownClock).toString());
+  redirectTimer = setInterval(countDown, 1000);
+}
+
+// get current time
+function currentTime() {
+  return performance.now();
+
+}
+
+
+// get browser
+function getBrowser() {
+  var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+  if(/trident/i.test(M[1])) {
+    tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
+    return {name:'IE',version:(tem[1]||'')};
+    }
+  if(M[1]==='Chrome') {
+    tem=ua.match(/\bOPR|Edge\/(\d+)/)
+    if(tem!=null) {
+      return {name:'Opera', version:tem[1]};
+      }
+    }
+  M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+  if((tem=ua.match(/version\/(\d+)/i))!=null) {
+    M.splice(1,1,tem[1]);
+  }
+  return {
+    name: M[0],
+    version: M[1]
+  };
+
+}
+
+// countdown timer for the graph
+function countDownGraph () {
+  graphCountDownClock--;
+  if (graphCountDownClock == 0) {
+    clearInterval(redirectTimer);
+  } else {
+    $('#countDownGraph').text((graphCountDownClock).toString());
+  }
+}
+
+// countdown timer for finishing experiment
+function countDown () {
+  finalCountDownClock--;
+  if (finalCountDownClock == 0) {
+    clearInterval(redirectTimer);
+    window.location = urlProlific;
+  } else {
+    $('#countDown').text((finalCountDownClock).toString());
+  }
+}
+
+</script>
+
+<style>
+body {
+  font-family: Helvetica,Arial;
+  font-size: 14pt;
+  height: 100%;
+  margin: 10 auto;
+}
+
+#imageInstructions {
+	display:block;
+	max-width: 80%;
+	margin: 0 auto;
+	margin-top: 0px;
+  text-align: left;
+  margin-bottom: -1.2em;
+}
+
+#title, #browserCompat {
+  font-size: 18pt;
+  text-align: center;
+  margin: 0 auto;
+}
+
+input {
+  position: relative;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#showDinoIB, #showInitIB, #showGorillaIB, #showFinalIB, #finishExperiment {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+	color: black;
+	font-size:14pt;
+	border: 3px outset gray;
+	background-color: #4CAF50;
+	padding: 0px;
+	text-decoration: none;
+	font-weight: bold;
+  position: relative;
+  width: 150px;
+	margin-top:0px;
+	margin-bottom:0px;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+}
+
+#showDinoIB:hover, #showInitIB:hover, #showGorillaIB:hover, #showFinalIB:hover, #finishExperiment:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+#showDinoIB:active, #showInitIB:active, #showGorillaIB:active, #showFinalIB:active, #finishExperiment:active {
+	background: gray;
+}
+
+#ib_part1, #ib_part2, #ib_part3 {
+	display:none;
+	max-width: 500px;
+	text-align:center;
+	margin: 10 auto;
+	padding-bottom:10px;
+	font-size:14pt
+}
+
+#doneText {
+	display:none;
+	max-width: 500px;
+	text-align:left;
+	margin: 10 auto;
+	padding-bottom:10px;
+	font-size:14pt
+}
+
+#doneText p, {
+	font-size:12pt
+}
+
+#commentBox, #graphBox, #senseBox {
+	display:none;
+}
+
+</style>
